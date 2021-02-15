@@ -1,4 +1,4 @@
-//FIle Name: Source.cpp
+//File Name: Source.cpp
 //Author: Miranda Millington
 //Email Address: mrmillington@my.milligan.edu
 //Class Assignment for EENG221 Spring 2021
