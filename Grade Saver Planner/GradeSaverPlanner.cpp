@@ -13,6 +13,9 @@ int main()
 	int num; 
 	string name, plannername, coursecode[10];
 	char grade[10];
+	char gradecat1[4];
+	double catpercent[100];
+
 
 	cout << "Enter your first name. \n";
 	cin >> name;
@@ -22,12 +25,12 @@ int main()
 
 	double credithours[10],totalcredithours = 0; 
 	char ans;
-
+	const int maxcourses = 10;
 	cout << "Enter the number of courses you are taking this semester. (max of 10) \n";
 	cin >> num; 
-	cout << num << endl;
+	cout << name << " is taking " << num << " courses this semester." << endl;
 
-	if (num <= 10) {
+	if (num <= maxcourses) {
 
 		for (int i = 0; i < num; i++)
 		{
@@ -118,6 +121,7 @@ int main()
 			break;
 		default:
 			cout << "That is not a possible grade. \n";
+			//need to loop back up, while loop
 		}
 	}
 
@@ -133,7 +137,7 @@ int main()
 
 	
 		int choice;
-
+		double aweight = 0, qweight = 0, tweight = 0, fweight = 0;
 		do
 		{
 			cout << "Let's begin entering assignments for each course. \n";
@@ -147,6 +151,18 @@ int main()
 			{
 			case 1:
 				//code to start entering assignments for course[0]
+				//% of category, 4 types, # of assignments in each category
+				// make categories, % array, # of assign. array, grade [2,5] (2D array)
+				cout << "Enter the grade weight for assignments, quizzes, tests, and the final exam in percent form. Then press return. \n";
+				cout << "Assignments: ";
+				cin >> aweight;
+				cout << "Quizzes: ";
+				cin >> qweight;
+				cout << "Tests: ";
+				cin >> tweight;
+				cout << "Final Exam: ";
+				cin >> fweight;
+				// need some way to check that all the percents add up to 100
 				break;
 			default:
 				cout << "Not a valid choice. \n"
@@ -154,6 +170,13 @@ int main()
 			}
 		} while (choice < num);
 
+		// putting a predefined function here unrelated to my program. 
+		// have not found a place where I need a predefined function yet
+		
+		int x;
+		srand(22);
+		x = rand();
+		cout << x;
 
 	return 0; 
 }
