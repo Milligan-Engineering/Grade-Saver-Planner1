@@ -3,23 +3,33 @@
 //Email Address: mrmillington@my.milligan.edu
 //Class Assignment for EENG221 Spring 2021
 //Description: Program to organize college assignments by due date and significance to students grade.
-//Last Changed: February 15th, 2021
+//Last Changed: March 11th, 2021
 
 
 #include <iostream>
 using namespace std;
 double gpacalc(const double grade[], const double credithours[], double totalcredithours, int num);
-//function will calculate the gpa of user by multiplying the grade of each class by the classes credit hours then dividing by total credit hours
-double gradenum(char grade[], string coursecode[]);
-// function will convert letter grade to a number value grade
-double currentgrade(char gradeinfo[], double aweight[], double qweight[], double tweight[], double fweight[], int num);
-// function will calculate users most current grade by multiplying all the assignments, tests, etc by grade weight for each type
+//Preconditions: Grade of each class is multiplied by credit hours of the class then divided by total credit hours
+//Postconditions: Calculates students GPA
+double gradenum(char grade[], string coursecode[], int num);
+//Preconditions: Converts character grade to equivalent numerical grade
+//Postconditions: returns the numerical grade of each class
+double currentgrade(string gradeinfo[], double aweight[], double qweight[], double tweight[], double fweight[], int num);
+//Preconditions: Multiplies the grade for each assignment by its grade weight for every class
+//Postconditions: Returns the updated grade of student
+void listprint(string course[10], int num, const int maxcourses);
+//Preconditions: reads input of course codes
+//Postconditions: Prints out courses
+void listprint(string course[10], int num, string assignment[10][10], int numofassign);
+//Precondition: reads input of assignments for each course
+//Postconditions: Displays the assignments for each class
 
 int main()
 {
 	int num; 
 	num = 0;
 	string name, plannername, coursecode[10];
+	char course[10];
 	char grade[10];
 	char gradecat1[4];
 	double catpercent[100];
@@ -65,78 +75,13 @@ int main()
 		cout << "Total credit hours: " << totalcredithours << "\n";
 	}
 
-	for (int i = 0; i < num; i++) {
-		char grade1, grade2, grade3;
-		double pv[10], pv1 = 0, pv2, pv3, gpa;
+	for (int i = 0; i < num; i++) 
+	{
 
 		cout << "Enter current letter grade in " << coursecode[i] << ".\n";
 		cin >> grade[i];
-		switch (grade[i])
-		{
-		case 'A':
-		case 'a':
-			grade[i] = 4.0;
-			cout << " Current grade in " << coursecode[i] << ": 4.0\n";
-			break;
-		case 'A-':
-		case 'a-':
-			grade[i] = 3.7;
-			cout << " Current grade in " << coursecode[i] << ": 3.7\n";
-			break;
-		case 'B+':
-		case 'b+':
-			grade[i] = 3.33;
-			cout << " Current grade in " << coursecode[i] << ": 3.33\n";
-			break;
-		case 'B':
-		case 'b':
-			grade[i] = 3.0;
-			cout << " Current grade in " << coursecode[i] << ": 3.0\n";
-			break;
-		case 'B-':
-		case 'b-':
-			grade[i] = 2.7;
-			cout << " Current grade in " << coursecode[i] << ": 2.7\n";
-			break;
-		case 'C+':
-		case 'c+':
-			grade[i] = 2.33;
-			cout << " Current grade in " << coursecode[i] << ": 2.33\n";
-			break;
-		case 'C':
-		case 'c':
-			grade[i] = 2.0;
-			cout << " Current grade in " << coursecode[i] << ": 2.0\n";
-			break;
-		case 'C-':
-		case 'c-':
-			grade[i] = 1.7;
-			cout << " Current grade in " << coursecode[i] << ": 1.7\n";
-			break;
-		case 'D+':
-		case 'd+':
-			grade[i] = 1.33;
-			cout << " Current grade in " << coursecode[i] << ": 1.33\n";
-			break;
-		case 'D':
-		case 'd':
-			grade[i] = 1.0;
-			cout << " Current grade in " << coursecode[i] << ": 1.0\n";
-			break;
-		case 'D-':
-		case 'd-':
-			grade[i] = 0.7;
-			cout << " Current grade in " << coursecode[i] << ": 0.7\n";
-			break;
-		case 'F':
-		case 'f':
-			grade[i] = 0.0;
-			cout << " Current grade in " << coursecode[i] << ": 0.0\n";
-			break;
-		default:
-			cout << "That is not a possible grade. \n";
-			//need to loop back up, while loop
-		}
+		double gradevalue = gradenum(grade, coursecode, num);
+		
 	}
 
 	double gpa;
@@ -386,11 +331,48 @@ double gradenum(char grade[], string coursecode[], int num)
 	return gradevalue;
 }
 
-double currentgrade(char gradeinfo[], double aweight[], double qweight[], double tweight[], double fweight[], int num)
+double currentgrade(string gradeinfo[], double aweight[], double qweight[], double tweight[], double fweight[], int num)
 {
 	double newgrade;
 	newgrade = 0;
 	for (int i = 0; i < num; i++)
 	//Function to compute the grade in a class including all assignments, tests, etc
 	return newgrade;
+}
+
+void listprint(string course[10], int num)
+{
+		for (int i = 0; i < num; i++)
+		{
+			cout << "Enter the course code for course " << i + 1 << " with no spaces. \n";
+			cin >> course[i];
+			cout << "Course " << i + 1 << ":" << course[i] << endl;
+			
+		}
+
+	for (int i = 0; i < num; i++)
+	{
+		cout << course[i] << "\n";
+	}
+}
+
+void listprint(string course[10], int num, string assignment[10][10], int numofassign)
+{
+	for (int i = 0; i < num; i++)
+	{
+
+		cout << "How many assignments are you entering for " << course[i] << "? (max of 10) \n";
+		cin >> numofassign;
+		cout << "Enter all assignments for " << course[i] << ". \n";
+		cout << "Enter assignments one at a time. \n";
+		for (int j = 0; j < numofassign; j++)
+		{
+			cin >> assignment[j][i];
+			cout << "These are all the assignments for " << course[i] << ". \n";
+			cout << assignment[j][i];
+		}
+		//still working on this to make it just a print function and have the info entered in main
+		
+	}
+	
 }
