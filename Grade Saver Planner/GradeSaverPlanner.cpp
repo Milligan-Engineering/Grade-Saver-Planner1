@@ -7,6 +7,8 @@
 
 
 #include <iostream>
+#include <fstream>
+#include <cstdlib>
 using namespace std;
 double gpacalc(const double grade[], const double credithours[], double totalcredithours, int num);
 //Preconditions: Grade of each class is multiplied by credit hours of the class then divided by total credit hours
@@ -28,7 +30,7 @@ int main()
 {
 	int num; 
 	num = 0;
-	string name, plannername, coursecode[10];
+	string name, plannername, coursecode[10], coursecodea[10];
 	char course[10];
 	char grade[10];
 	char gradecat1[4];
@@ -91,10 +93,10 @@ int main()
 		gpa += (grade[i] * credithours[i]) / totalcredithours;
 	}
 
-		const double perfectgpa = 4.0;
-		cout << "Your GPA on a " << perfectgpa << " point scale is " << gpa << "\n";
+	const double perfectgpa = 4.0;
+	cout << "Your GPA on a " << perfectgpa << " point scale is " << gpa << "\n";
 
-		int choice;
+	int choice;
 		
 		do
 		{
@@ -107,6 +109,8 @@ int main()
 			cout << "Enter your choice and press return: \n";
 			cin >> choice;
 			switch (choice)
+				//choice, aweightchoice
+				//dont do cases
 			{
 				double aweight[10], qweight[10], tweight[10], fweight[10];
 				case 1:
@@ -231,14 +235,40 @@ int main()
 			}
 		} while (choice < num);
 
-		// putting a predefined function here unrelated to my program. 
-		// have not found a place where I need a predefined function yet
-		
-		int x;
-		srand(22);
-		x = rand();
-		cout << x;
+		ifstream inStream;
+		ofstream outStream;
 
+		inStream.open("infile.dat");
+		if (inStream.fail())
+		{
+			cout << "Input file opening failed. \n";
+			exit(1);
+		}
+		outStream.open("outfile.dat");
+		if (outStream.fail())
+		{
+			cout << "Outout file opening failed. \n";
+			exit(1);
+		}
+	
+		inStream >> coursecodea[10];
+		//once this file input is written correctly for sure I will replace the coding higher up in the program
+
+		if (num <= maxcourses) {
+
+			for (int i = 0; i < num; i++)
+			{
+				cout << "Enter the course code for course " << i + 1 << " with no spaces. \n";
+				cin >> coursecodea[i];
+				cout << "Course " << i + 1 << ":" << coursecodea[i] << endl;
+			}
+			for (int i = 0; i < num; i++)
+				outStream << "This student is taking these courses: " << coursecode[10] << endl;
+
+			inStream.close();
+			outStream.close();
+		}
+		
 	
 	return 0; 
 	
