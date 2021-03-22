@@ -111,8 +111,20 @@ int main()
 			switch (choice)
 				//choice, aweightchoice
 				//dont do cases
-			{
 				double aweight[10], qweight[10], tweight[10], fweight[10];
+
+			cout << "Enter the grade weight for assignments, quizzes, tests, and the final exam in percent form. Then press return. \n";
+			cout << "Assignments: ";
+			cin >> aweight[choice];
+			cout << "Quizzes: ";
+			cin >> qweight[choice];
+			cout << "Tests: ";
+			cin >> tweight[choice];
+			cout << "Final Exam: ";
+			cin >> fweight[choice];
+
+/*
+			{
 				case 1:
 					//code to start entering assignments for course[0]
 					//% of category, 4 types, # of assignments in each category
@@ -233,17 +245,18 @@ int main()
 						<< "Choose again. \n";
 			
 			}
+			*/
 		} while (choice < num);
 
 		ifstream inStream;
 		ofstream outStream;
 
-		inStream.open("infile.dat");
+	/*	inStream.open("infile.dat");
 		if (inStream.fail())
 		{
 			cout << "Input file opening failed. \n";
 			exit(1);
-		}
+		}*/
 		outStream.open("outfile.dat");
 		if (outStream.fail())
 		{
