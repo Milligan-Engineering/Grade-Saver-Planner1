@@ -3,7 +3,7 @@
 //Email Address: mrmillington@my.milligan.edu
 //Class Assignment for EENG221 Spring 2021
 //Description: Program to organize college assignments by due date and significance to students grade.
-//Last Changed: March 11th, 2021
+//Last Changed: March 23rd, 2021
 
 
 #include <iostream>
@@ -83,6 +83,7 @@ int main()
 		cout << "Enter current letter grade in " << coursecode[i] << ".\n";
 		cin >> grade[i];
 		double gradevalue = gradenum(grade, coursecode, num);
+		//Issue where it says input isnt a possible grade every time
 		
 	}
 
@@ -109,142 +110,31 @@ int main()
 			cout << "Enter your choice and press return: \n";
 			cin >> choice;
 			switch (choice)
-				//choice, aweightchoice
-				//dont do cases
-			{
+				choice = 0;
 				double aweight[10], qweight[10], tweight[10], fweight[10];
-				case 1:
-					//code to start entering assignments for course[0]
-					//% of category, 4 types, # of assignments in each category
-					// make categories, % array, # of assign. array, grade [2,5] (2D array)
-					// need some way to check that all the percents add up to 100
+			cout << "Enter the grade weight for assignments, quizzes, tests, and the final exam in percent form. Then press return. \n";
+			cout << "Assignments: ";
+			cin >> aweight[choice];
+			cout << "Quizzes: ";
+			cin >> qweight[choice];
+			cout << "Tests: ";
+			cin >> tweight[choice];
+			cout << "Final Exam: ";
+			cin >> fweight[choice];
 					
-					cout << "Enter the grade weight for assignments, quizzes, tests, and the final exam in percent form. Then press return. \n";
-					cout << "Assignments: ";
-					cin >> aweight[0];
-					cout << "Quizzes: ";
-					cin >> qweight[0];
-					cout << "Tests: ";
-					cin >> tweight[0];
-					cout << "Final Exam: ";
-					cin >> fweight[0];
-					break;
-				case 2:
-					cout << "Enter the grade weight for assignments, quizzes, tests, and the final exam in percent form. Then press return. \n";
-					cout << "Assignments: ";
-					cin >> aweight[1];
-					cout << "Quizzes: ";
-					cin >> qweight[1];
-					cout << "Tests: ";
-					cin >> tweight[1];
-					cout << "Final Exam: ";
-					cin >> fweight[1];
-					break;
-				case 3:
-					cout << "Enter the grade weight for assignments, quizzes, tests, and the final exam in percent form. Then press return. \n";
-					cout << "Assignments: ";
-					cin >> aweight[2];
-					cout << "Quizzes: ";
-					cin >> qweight[2];
-					cout << "Tests: ";
-					cin >> tweight[2];
-					cout << "Final Exam: ";
-					cin >> fweight[2];
-					break;
-				case 4:
-					cout << "Enter the grade weight for assignments, quizzes, tests, and the final exam in percent form. Then press return. \n";
-					cout << "Assignments: ";
-					cin >> aweight[3];
-					cout << "Quizzes: ";
-					cin >> qweight[3];
-					cout << "Tests: ";
-					cin >> tweight[3];
-					cout << "Final Exam: ";
-					cin >> fweight[3];
-					break;
-				case 5:
-					cout << "Enter the grade weight for assignments, quizzes, tests, and the final exam in percent form. Then press return. \n";
-					cout << "Assignments: ";
-					cin >> aweight[4];
-					cout << "Quizzes: ";
-					cin >> qweight[4];
-					cout << "Tests: ";
-					cin >> tweight[4];
-					cout << "Final Exam: ";
-					cin >> fweight[4];
-					break;
-				case 6:
-					cout << "Enter the grade weight for assignments, quizzes, tests, and the final exam in percent form. Then press return. \n";
-					cout << "Assignments: ";
-					cin >> aweight[5];
-					cout << "Quizzes: ";
-					cin >> qweight[5];
-					cout << "Tests: ";
-					cin >> tweight[5];
-					cout << "Final Exam: ";
-					cin >> fweight[5];
-					break;
-				case 7:
-					cout << "Enter the grade weight for assignments, quizzes, tests, and the final exam in percent form. Then press return. \n";
-					cout << "Assignments: ";
-					cin >> aweight[6];
-					cout << "Quizzes: ";
-					cin >> qweight[6];
-					cout << "Tests: ";
-					cin >> tweight[6];
-					cout << "Final Exam: ";
-					cin >> fweight[6];
-					break;
-				case 8:
-					cout << "Enter the grade weight for assignments, quizzes, tests, and the final exam in percent form. Then press return. \n";
-					cout << "Assignments: ";
-					cin >> aweight[7];
-					cout << "Quizzes: ";
-					cin >> qweight[7];
-					cout << "Tests: ";
-					cin >> tweight[7];
-					cout << "Final Exam: ";
-					cin >> fweight[7];
-					break;
-				case 9:
-					cout << "Enter the grade weight for assignments, quizzes, tests, and the final exam in percent form. Then press return. \n";
-					cout << "Assignments: ";
-					cin >> aweight[8];
-					cout << "Quizzes: ";
-					cin >> qweight[8];
-					cout << "Tests: ";
-					cin >> tweight[8];
-					cout << "Final Exam: ";
-					cin >> fweight[8];
-					break;
-				case 10:
-					cout << "Enter the grade weight for assignments, quizzes, tests, and the final exam in percent form. Then press return. \n";
-					cout << "Assignments: ";
-					cin >> aweight[9];
-					cout << "Quizzes: ";
-					cin >> qweight[9];
-					cout << "Tests: ";
-					cin >> tweight[9];
-					cout << "Final Exam: ";
-					cin >> fweight[9];
-					break;
-				default:
-					cout << "Not a valid choice. \n"
-						<< "Choose again. \n";
-			
-			}
 		} while (choice < num);
 
+		//file IO is failing to work
 		ifstream inStream;
 		ofstream outStream;
 
-		inStream.open("infile.dat");
+		inStream.open("infile.csv");
 		if (inStream.fail())
 		{
 			cout << "Input file opening failed. \n";
 			exit(1);
 		}
-		outStream.open("outfile.dat");
+		outStream.open("outfile.csv");
 		if (outStream.fail())
 		{
 			cout << "Outout file opening failed. \n";
@@ -371,6 +261,7 @@ double currentgrade(string gradeinfo[], double aweight[], double qweight[], doub
 }
 
 void listprint(string course[10], int num)
+//once this works I can implement it in the program
 {
 		for (int i = 0; i < num; i++)
 		{
