@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <cstring>
 #include <cstdlib>
 using namespace std;
 double gpacalc(const double grade[], const double credithours[], double totalcredithours, int num);
@@ -26,19 +27,40 @@ void listprint(string course[10], int num, string assignment[10][10], int numofa
 //Precondition: reads input of assignments for each course
 //Postconditions: Displays the assignments for each class
 
+/*Class for ......
+class Example
+{
+public:
+	Example(x,y,z)
+	Example(a,b)
+*/
+
+// Course course[max]  course[2].prefix
+			
+//Structure for displaying courses and their credithours
+struct Course
+{
+	char prefix;
+	string coursenum;
+	string hours;
+	string coursecode;
+	int num;
+};
+
 int main()
 {
-	int num; 
+	int num;
 	num = 0;
-	string name, plannername, coursecode[10], coursecodea[10];
+	string name, plannername, courseprefix[10], coursecode[10], coursenum[10];
+	string prefix, coursenum, course, credithours;
+	double aweight[10], qweight[10], tweight[10], fweight[10];
 	char course[10];
 	char grade[10];
 	char gradecat1[4];
 	double catpercent[100];
 	char gradeinfo[3][10];
-	double gradevalue;
+	double gradevalue[10];
 	double newgrade;
-	gradevalue = 0;
 	newgrade = 0;
 	//can this array be indexed to the number of classes user inputs
 
@@ -49,69 +71,108 @@ int main()
 	cout << "Get started on ";
 	cout << name << "'s Grade Saver Planner" << endl;
 
-	double credithours[10],totalcredithours = 0; 
+	double credithours[10], totalcredithours = 0;
 	char ans;
 	const int maxcourses = 10;
 	cout << "Enter the number of courses you are taking this semester. (max of 10) \n";
-	cin >> num; 
+	cin >> num;
 	cout << name << " is taking " << num << " courses this semester." << endl;
+
+	ofstream outStream;
+
+	outStream.open("outfile.csv");
+	if (outStream.fail())
+	{
+		cout << "Outout file opening failed. \n";
+		exit(1);
+	}
+
+	outStream << name << "," << num << " courses" << "\n";
+
+	Course course[10];
+	int i;
+	for (int i = 0; i < 10; i++)
+	{
+		cout << "Enter the course prefix for course " << i + 1 << " with no spaces. \n";
+		cin >> course[i].prefix;
+		cout << "Enter the course number for course " << i + 1 << " with no spaces. \n";
+		cin >> course[i].coursenum;
+		cout << "Enter the credit hours for course " << i + 1 << ". \n";
+		cin >> course[i].hours;
+		cout << "Course " << i + 1 << ":" << course[i].prefix + course[i].num << endl;
+	}
 
 	if (num <= maxcourses) {
 
 		for (int i = 0; i < num; i++)
 		{
-			cout << "Enter the course code for course " << i + 1 << " with no spaces. \n";
-			cin >> coursecode[i];
+			
+			cout << "Enter the course prefix for course " << i + 1 << " with no spaces. \n";
+			cin >> courseprefix[i];
+			cout << "Enter the course number for course " << i + 1 << " with no spaces. \n";
+			cin >> coursenum[i];
 			cout << "Enter the credit hours for course " << i + 1 << ". \n";
 			cin >> credithours[i];
-			cout << "Course " << i + 1 << ":" << coursecode[i] << endl;
+			cout << "Course " << i + 1 << ":" << courseprefix[i] << coursenum[i] << endl;
 			cout << "Course " << i + 1 << " Credit Hours:" << credithours[i] << endl;
 		}
 
+		
+
+		
+
+		for (int i = 0; i < num; i++)
+		{
+			coursecode[i] = courseprefix[i] + coursenum[i];
+			cout << "Enter current letter grade in " << coursecode[i] << ".\n";
+			cin >> grade[i];
+			gradenum(grade, coursecode, num);
+			cout << grade[i];
+			//Issue where it says input isnt a possible grade every time
+			outStream << courseprefix[i] << "," << coursenum[i] << "," << credithours[i] << "," << gradevalue[i] << "\n";
+			//trying the get the gradevalue to be out streamed but wont display correct conversion
+		}
+
 		totalcredithours = 0;
-		for (int i = 0; i < num; i++) {
+		for (int i = 0; i < num; i++)
+		{
 			totalcredithours += credithours[i];
 		}
 		// Totals the number of credit hours student is taking.
 
 		cout << "Total credit hours: " << totalcredithours << "\n";
+		outStream << "Total Credit Hours = " << totalcredithours << "\n";
 	}
 
-	for (int i = 0; i < num; i++) 
-	{
-
-		cout << "Enter current letter grade in " << coursecode[i] << ".\n";
-		cin >> grade[i];
-		double gradevalue = gradenum(grade, coursecode, num);
-		//Issue where it says input isnt a possible grade every time
-		
-	}
 
 	double gpa;
 	gpa = 0;
-	for (int i = 0; i < num; i++) {
+	for (int i = 0; i < num; i++)
+	{
 		credithours[i] = 0;
-		gpa += (grade[i] * credithours[i]) / totalcredithours;
+		gpa +=  (grade[i]* credithours[i]) / totalcredithours;
+		//grade[i] isn't working anymore, stuck at 0 and not converting to a number
 	}
 
 	const double perfectgpa = 4.0;
 	cout << "Your GPA on a " << perfectgpa << " point scale is " << gpa << "\n";
-
+	
 	int choice;
-		
+	{
 		do
 		{
 			cout << "Let's begin entering assignments for each course. \n";
-			for (int i = 0; i < num; i++) {
-			
-			
+			for (int i = 0; i < num; i++)
+			{
+
+
 				cout << "Choose " << i + 1 << " for " << coursecode[i] << "\n";
 			}
 			cout << "Enter your choice and press return: \n";
 			cin >> choice;
 			switch (choice)
 				choice = 0;
-				double aweight[10], qweight[10], tweight[10], fweight[10];
+			
 			cout << "Enter the grade weight for assignments, quizzes, tests, and the final exam in percent form. Then press return. \n";
 			cout << "Assignments: ";
 			cin >> aweight[choice];
@@ -121,48 +182,19 @@ int main()
 			cin >> tweight[choice];
 			cout << "Final Exam: ";
 			cin >> fweight[choice];
-					
+
 		} while (choice < num);
 
-		//file IO is failing to work
-		ifstream inStream;
-		ofstream outStream;
-
-		inStream.open("infile.csv");
-		if (inStream.fail())
+		for (int choice = 0; choice < num; choice++);
 		{
-			cout << "Input file opening failed. \n";
-			exit(1);
+			outStream << aweight[choice] << "," << qweight[choice] << "," << tweight[choice] << "," << fweight[choice] << "\n";
 		}
-		outStream.open("outfile.csv");
-		if (outStream.fail())
-		{
-			cout << "Outout file opening failed. \n";
-			exit(1);
-		}
-	
-		inStream >> coursecodea[10];
-		//once this file input is written correctly for sure I will replace the coding higher up in the program
+	} 
 
-		if (num <= maxcourses) {
-
-			for (int i = 0; i < num; i++)
-			{
-				cout << "Enter the course code for course " << i + 1 << " with no spaces. \n";
-				cin >> coursecodea[i];
-				cout << "Course " << i + 1 << ":" << coursecodea[i] << endl;
-			}
-			for (int i = 0; i < num; i++)
-				outStream << "This student is taking these courses: " << coursecode[10] << endl;
-
-			inStream.close();
-			outStream.close();
-		}
-		
 	
-	return 0; 
-	
+		return 0;
 }
+
 
 double gpacalc(double grade[], double credithours[], double totalcredithours, int num)
 {
@@ -177,10 +209,11 @@ double gpacalc(double grade[], double credithours[], double totalcredithours, in
 
 double gradenum(char grade[], string coursecode[], int num)
 {
-	double gradevalue;
-	gradevalue = 0;
+	double gradevalue[10];
+	
 	for (int i = 0; i < num; i++)
 	{
+		gradevalue[i] = 0;
 		switch (grade[i])
 		{
 		case 'A':
@@ -235,7 +268,7 @@ double gradenum(char grade[], string coursecode[], int num)
 			break;
 		case 'D-':
 		case 'd-':
-			grade[i] = 0.7;
+			gradevalue[i] = 0.7;
 			cout << " Current grade in " << coursecode[i] << ": 0.7\n";
 			break;
 		case 'F':
@@ -246,9 +279,8 @@ double gradenum(char grade[], string coursecode[], int num)
 		default:
 			cout << "That is not a possible grade. \n";
 		}
+		return gradevalue[i];
 	}
-	//need to loop back up, while loop
-	return gradevalue;
 }
 
 double currentgrade(string gradeinfo[], double aweight[], double qweight[], double tweight[], double fweight[], int num)
