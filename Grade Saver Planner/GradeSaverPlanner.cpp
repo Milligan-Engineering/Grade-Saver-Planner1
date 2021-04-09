@@ -27,13 +27,21 @@ void listprint(string course[10], int num, string assignment[10][10], int numofa
 //Precondition: reads input of assignments for each course
 //Postconditions: Displays the assignments for each class
 
-/*Class for ......
-class Example
+//Class for calculating gpa
+class GPA
 {
 public:
-	Example(x,y,z)
-	Example(a,b)
-*/
+	double gradenum(char grade[], string coursecode[], int num);
+	//Uses students grade in each class and credit hours to calculate overall GPA
+	int get(int num);
+	//Returns the current integer value of the number of courses
+	void set(int num);
+	//Postcondition: sets num to the user input variable num
+private:
+	char grade[10];
+	string coursecode[10];
+	int num;
+};
 
 // Course course[max]  course[2].prefix
 			
@@ -52,9 +60,8 @@ int main()
 	int num;
 	num = 0;
 	string name, plannername, courseprefix[10], coursecode[10], coursenum[10];
-	string prefix, coursenum, course, credithours;
 	double aweight[10], qweight[10], tweight[10], fweight[10];
-	char course[10];
+	//char course[10];
 	char grade[10];
 	char gradecat1[4];
 	double catpercent[100];
@@ -62,7 +69,8 @@ int main()
 	double gradevalue[10];
 	double newgrade;
 	newgrade = 0;
-	//can this array be indexed to the number of classes user inputs
+	Course course[10];
+	
 
 
 	cout << "Enter your first name. \n";
@@ -89,7 +97,6 @@ int main()
 
 	outStream << name << "," << num << " courses" << "\n";
 
-	Course course[10];
 	int i;
 	for (int i = 0; i < 10; i++)
 	{
@@ -207,7 +214,19 @@ double gpacalc(double grade[], double credithours[], double totalcredithours, in
 	return (gpa / totalcredithours);
 }
 
-double gradenum(char grade[], string coursecode[], int num)
+int GPA::get(int num)
+{
+	int num;
+	return num;
+}
+
+void GPA::set(int num)
+{
+	int num;
+	num = num;
+}
+
+double GPA::gradenum(char grade[], string coursecode[], int num)
 {
 	double gradevalue[10];
 	
