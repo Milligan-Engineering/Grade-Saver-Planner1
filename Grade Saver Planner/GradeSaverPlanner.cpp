@@ -30,9 +30,9 @@
 	//structure for course information
 	struct Courses
 	{
-		int numofcourses;
+		int numofcourses = 0;
 		string coursename[10];
-		double hours[10] = { 10 };
+		double hours[10] = { 0 };
 		string grade[10];
 		double totalcredithours = 10;
 		const int maxcourses = 10;
@@ -51,13 +51,12 @@
 
 	double TotalHours(Courses& theCourse);
 
-	void GradeConverter(Courses& theCourse);
+	string GradeConverter(Courses& theCourse);
 
 
 	int main()
 	{
 		//Variable Declarations
-		double totalcredithours;
 		int i;
 
 		//Begin main program
@@ -95,6 +94,18 @@
 		outStream << "Total Credit Hours = " << course.totalcredithours << "\n";
 
 		GradeConverter(course);
+
+		/*double gpa;
+		gpa = 0;
+		for (int i = 0; i < course.numofcourses; i++)
+		{
+			gpa += (course.grade[i]  course.hours[i]) / course.totalcredithours;
+		}
+		
+
+		const double perfectgpa = 4.0;
+		cout << "Your GPA on a " << perfectgpa << " point scale is " << gpa << "\n";
+		*/
 
 		return 0;
 	}
@@ -145,7 +156,6 @@
 
 		double TotalHours(Courses& theCourse)
 		{
-			int k;
 			for (int k = 0; k < theCourse.numofcourses; k++)
 			{
 				theCourse.totalcredithours += theCourse.hours[k];
@@ -155,7 +165,8 @@
 			return theCourse.totalcredithours;
 		}
 
-		void GradeConverter(Courses& theCourse)
+		/*
+		string GradeConverter(Courses& theCourse)
 		{
 			int i;
 			
@@ -173,7 +184,7 @@
 				double m = 1.0;
 				double n = 0.7;
 				double o = 0.0;
-				switch(grade[i])
+				switch(grade)
 				{
 				case 'A':
 				case 'a':
@@ -240,3 +251,4 @@
 				}
 			}
 		}
+		*/
