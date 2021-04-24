@@ -32,9 +32,10 @@
 	{
 		int numofcourses;
 		string coursename[10];
-		double hours[10];
-		char grade[10];
-		double totalcredithours;
+		double hours[10] = { 10 };
+		string grade[10];
+		double totalcredithours = 10;
+		const int maxcourses = 10;
 	};
 
 	//structure for assignment information
@@ -50,11 +51,14 @@
 
 	double TotalHours(Courses& theCourse);
 
+	void GradeConverter(Courses& theCourse);
+
 
 	int main()
 	{
 		//Variable Declarations
 		double totalcredithours;
+		int i;
 
 		//Begin main program
 		Student firstname;
@@ -65,82 +69,8 @@
 		Courses course;
 		getCourseInfo(course);
 
-		int i;
-		for(i=0; i < 10; i++)
-		{
-			if (course.grade[i] == (('a' || 'A' || 'a-' || 'A-' || 'b+' || 'B+' || 'b' || 'B' || 'b-' || 'B-' || 'c+' || 'C+' || 'c' || 'C' || 'c-' || 'C-' || 'd+' || 'D+' || 'd' || 'D' || 'd-' || 'D+' || 'f' || 'F')))
-			{
-				switch (course.grade[i])
-				{
-				case 'A':
-				case 'a':
-					course.grade[i] = 4.0;
-					cout << " Current grade in " << course.coursename[i] << ": 4.0\n";
-					break;
-				case 'A-':
-				case 'a-':
-					course.grade[i] = 3.7;
-					cout << " Current grade in " << course.coursename[i] << ": 3.7\n";
-					break;
-				case 'B+':
-				case 'b+':
-					course.grade[i] = 3.33;
-					cout << " Current grade in " << course.coursename[i] << ": 3.33\n";
-					break;
-				case 'B':
-				case 'b':
-					course.grade[i] = 3.0;
-					cout << " Current grade in " << course.coursename[i] << ": 3.0\n";
-					break;
-				case 'B-':
-				case 'b-':
-					course.grade[i] = 2.7;
-					cout << " Current grade in " << course.coursename[i] << ": 2.7\n";
-					break;
-				case 'C+':
-				case 'c+':
-					course.grade[i] = 2.33;
-					cout << " Current grade in " << course.coursename[i] << ": 2.33\n";
-					break;
-				case 'C':
-				case 'c':
-					course.grade[i] = 2.0;
-					cout << " Current grade in " << course.coursename[i] << ": 2.0\n";
-					break;
-				case 'C-':
-				case 'c-':
-					course.grade[i] = 1.7;
-					cout << " Current grade in " << course.coursename[i] << ": 1.7\n";
-					break;
-				case 'D+':
-				case 'd+':
-					course.grade[i] = 1.33;
-					cout << " Current grade in " << course.coursename[i] << ": 1.33\n";
-					break;
-				case 'D':
-				case 'd':
-					course.grade[i] = 1.0;
-					cout << " Current grade in " << course.coursename[i] << ": 1.0\n";
-					break;
-				case 'D-':
-				case 'd-':
-					course.grade[i] = 0.7;
-					cout << " Current grade in " << course.coursename[i] << ": 0.7\n";
-					break;
-				case 'F':
-				case 'f':
-					course.grade[i] = 0.0;
-					cout << " Current grade in " << course.coursename[i] << ": 0.0\n";
-				}
-			}
-			else
-			{
-				cout << "That is not a possible grade. \n";
-			}
-			//printing the default every time
-			
-			
-		}
+		
+
 		ofstream outStream;
 
 		outStream.open("outfile.csv");
@@ -153,14 +83,18 @@
 		outStream << firstname.name << "\n";
 		outStream << course.numofcourses << " courses" << "\n";
 
-			for(i=0; i < 10; i++)
-			{
-				outStream << course.coursename[i] << "," << course.hours[i] << "," << course.grade[i] << "\n";
-			}
+
+		for(i=0; i < 10; i++)
+		{
+			outStream << course.coursename[i] << "," << course.hours[i] << "," << course.grade[i] << "\n";
+		}
 
 		TotalHours(course);
 		//not getting the correct sum for total hours
 			
+		outStream << "Total Credit Hours = " << course.totalcredithours << "\n";
+
+		GradeConverter(course);
 
 		return 0;
 	}
@@ -174,8 +108,15 @@
 		void getCourseInfo(Courses & theCourse)
 		{
 			cout << "Enter how many courses is taking this term. \n";
+			Number:
 			cin >> theCourse.numofcourses;
-			cout << theCourse.numofcourses << " courses \n";
+			if (theCourse.numofcourses <= theCourse.maxcourses)
+				cout << theCourse.numofcourses << " courses \n";
+			else
+			{
+				cout << "Maximum of ten courses may be entered. \n";
+				goto Number;
+			}
 
 			int i;
 			for (i = 0; i < theCourse.numofcourses; i++)
@@ -207,9 +148,95 @@
 			int k;
 			for (int k = 0; k < theCourse.numofcourses; k++)
 			{
-				theCourse.totalcredithours+=theCourse.hours[k];
+				theCourse.totalcredithours += theCourse.hours[k];
 			}
 
 			cout << "Total Hours: " << theCourse.totalcredithours << ".\n";
 			return theCourse.totalcredithours;
+		}
+
+		void GradeConverter(Courses& theCourse)
+		{
+			int i;
+			
+			for (i = 0; i < theCourse.numofcourses; i++)
+			{
+				double a = 4.0;
+				double b = 3.7;
+				double c = 3.33;
+				double d = 3.0;
+				double e = 2.7;
+				double f = 2.33;
+				double g = 2.0;
+				double h = 1.7;
+				double l = 1.33;
+				double m = 1.0;
+				double n = 0.7;
+				double o = 0.0;
+				switch(grade[i])
+				{
+				case 'A':
+				case 'a':
+					theCourse.grade[i] = a;
+					cout << " Current grade in " << theCourse.coursename[i] << ": " << a << "\n";
+					break;
+				case 'A-':
+				case 'a-':
+					theCourse.grade[i] = b;
+					cout << " Current grade in " << theCourse.coursename[i] << ": " << b << "\n";
+					break;
+				case 'B+':
+				case 'b+':
+					theCourse.grade[i] = c;
+					cout << " Current grade in " << theCourse.coursename[i] << ": " << theCourse.grade[i] << "\n";
+					break;
+				case 'B':
+				case 'b':
+					theCourse.grade[i] = d;
+					cout << " Current grade in " << theCourse.coursename[i] << ": " << theCourse.grade[i] << "\n";
+					break;
+				case 'B-':
+				case 'b-':
+					theCourse.grade[i] = e;
+					cout << " Current grade in " << theCourse.coursename[i] << ": " << theCourse.grade[i] << "\n";
+					break;
+				case 'C+':
+				case 'c+':
+					theCourse.grade[i] = f;
+					cout << " Current grade in " << theCourse.coursename[i] << ": " << theCourse.grade[i] << "\n";
+					break;
+				case 'C':
+				case 'c':
+					theCourse.grade[i] = g;
+					cout << " Current grade in " << theCourse.coursename[i] << ": " << theCourse.grade[i] << "\n";
+					break;
+				case 'C-':
+				case 'c-':
+					theCourse.grade[i] = h;
+					cout << " Current grade in " << theCourse.coursename[i] << ": " << theCourse.grade[i] << "\n";
+					break;
+				case 'D+':
+				case 'd+':
+					theCourse.grade[i] = l;
+					cout << " Current grade in " << theCourse.coursename[i] << ": " << theCourse.grade[i] << "\n";
+					break;
+				case 'D':
+				case 'd':
+					theCourse.grade[i] = m;
+					cout << " Current grade in " << theCourse.coursename[i] << ": " << theCourse.grade[i] << "\n";
+					break;
+				case 'D-':
+				case 'd-':
+					theCourse.grade[i] = n;
+					cout << " Current grade in " << theCourse.coursename[i] << ": " << theCourse.grade[i] << "\n";
+					break;
+				case 'F':
+				case 'f':
+					theCourse.grade[i] = o;
+					cout << " Current grade in " << theCourse.coursename[i] << ": " << theCourse.grade[i] << "\n";
+					break;
+				default:
+					cout << "That is not a possible grade. \n";
+				}
+			}
 		}
